@@ -14,6 +14,7 @@ import { fetchRandomMealsAPI } from '../api/API';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
 import RecipeCard from '../components/RecipeCard';
+import HeaderHome from '../components/HeaderHome';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 export default function HomeScreen({ navigation }) {
@@ -66,20 +67,7 @@ export default function HomeScreen({ navigation }) {
     <SafeAreaView style={styles.safeArea}>
       <StatusBar barStyle="dark-content" backgroundColor="#F9F9F9" />
       
-      <View style={styles.topAppBar}>
-        <View style={styles.headerLeft}>
-          <Text style={styles.logoText}>ResepKita</Text>
-        </View>
-        <View style={styles.headerRight}>
-          <FontAwesome name="search" size={24} color="#FF6B35" />
-          <View style={styles.avatarContainer}>
-            <Image 
-              source={require('../../assets/profilePicture.jpg')} 
-              style={styles.avatar} 
-            />
-          </View>
-        </View>
-      </View>
+      <HeaderHome />
 
       <View style={styles.container}>
         {loading ? (
@@ -115,52 +103,6 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: '#f4faff',
-  },
-  topAppBar: {
-    height: 64,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    backgroundColor: '#F9F9F9',
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(228, 228, 231, 0.6)',
-    elevation: 2,
-  },
-  headerLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  logoIcon: {
-    fontSize: 20,
-  },
-  logoText: {
-    fontSize: 20,
-    fontWeight: '800',
-    color: '#FF6B35',
-    letterSpacing: -0.5,
-  },
-  headerRight: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 16,
-  },
-  searchIcon: {
-    fontSize: 20,
-    color: '#71717a',
-  },
-  avatarContainer: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: '#e1bfb5',
-  },
-  avatar: {
-    width: '100%',
-    height: '100%',
   },
   container: {
     flex: 1,

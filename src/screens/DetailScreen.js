@@ -12,6 +12,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { fetchRecipeDetailAPI } from '../api/API';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { Favorite } from '../store/Favorite';
 
 export default function DetailScreen({ route, navigation }) {
   // Menerima ID resep dari parameter navigasi HomeScreen
@@ -21,8 +22,11 @@ export default function DetailScreen({ route, navigation }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  // Local state untuk favorite
-  const [isFavorite, setIsFavorite] = useState(false);
+  // Zustand untuk favorite
+  const favorites = Favorite((state) => state.favorites);
+  const addFavorite = Favorite((state) => state.addFavorite);
+  const removeFavorite = Favorite((state) => state.removeFavorite);
+  const isFavorite = favorites.some((item) => item.idMeal === idMeal);
 
   useEffect(() => {
     const fetchRecipeDetail = async () => {
@@ -50,7 +54,11 @@ export default function DetailScreen({ route, navigation }) {
   }, [idMeal]);
 
   const toggleFavorite = () => {
-    setIsFavorite(!isFavorite);
+    if (isFavorite) {
+      removeFavorite(idMeal);
+    } else {
+      addFavorite(recipe);
+    }
   };
 
   const getIngredients = () => {
