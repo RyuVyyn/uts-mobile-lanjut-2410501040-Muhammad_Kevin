@@ -1,15 +1,25 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { useNavigation } from '@react-navigation/native';
 
 export default function HeaderHome() {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.topAppBar}>
       <View style={styles.headerLeft}>
         <Text style={styles.logoText}>ResepKita</Text>
       </View>
+      
       <View style={styles.headerRight}>
-        <FontAwesome name="search" size={24} color="#FF6B35" />
+        <TouchableOpacity 
+          onPress={() => navigation.navigate('Search')} 
+          activeOpacity={0.7}
+        >
+          <FontAwesome name="search" size={24} color="#FF6B35" />
+        </TouchableOpacity>
+
         <View style={styles.avatarContainer}>
           <Image 
             source={require('../../assets/profilePicture.jpg')} 

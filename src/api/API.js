@@ -18,3 +18,18 @@ export const fetchRecipeDetailAPI = async (idMeal) => {
   const response = await api.get(`/lookup.php?i=${idMeal}`);
   return response.data.meals ? response.data.meals[0] : null;
 };
+
+export const fetchSearchMealsAPI = async (keyword) => {
+  const response = await api.get(`/search.php?s=${keyword}`);
+  return response.data.meals || [];
+};
+
+export const fetchMealsByCategoryAPI = async (category) => {
+  const response = await api.get(`/filter.php?c=${category}`);
+  return response.data.meals || [];
+};
+
+export const fetchCategoriesAPI = async () => {
+  const response = await api.get('/categories.php');
+  return response.data.categories || [];
+};

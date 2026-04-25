@@ -32,6 +32,16 @@ function FavoritesStack() {
   );
 }
 
+// Stack untuk Search -> Detail
+function SearchStack() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="SearchMain" component={SearchScreen} />
+      <Stack.Screen name="DetailScreen" component={DetailScreen} />
+    </Stack.Navigator>
+  );
+}
+
 // Navigasi Utama (Bottom Tab)
 export default function AppNavigator() {
   return (
@@ -59,7 +69,7 @@ export default function AppNavigator() {
         })}
       >
         <Tab.Screen name="Home" component={HomeStack} />
-        <Tab.Screen name="Search" component={SearchScreen} />
+        <Tab.Screen name="Search" component={SearchStack} />
         <Tab.Screen name="Favorites" component={FavoritesStack} />
         <Tab.Screen name="About" component={AboutScreen} />
       </Tab.Navigator>
