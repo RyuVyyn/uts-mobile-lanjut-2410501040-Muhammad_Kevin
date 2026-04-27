@@ -13,6 +13,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { fetchRecipeDetailAPI } from '../api/API';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Favorite } from '../store/Favorite';
+import Error from '../components/Error';
 
 export default function DetailScreen({ route, navigation }) {
   // Menerima ID resep dari parameter navigasi HomeScreen
@@ -28,23 +29,24 @@ export default function DetailScreen({ route, navigation }) {
   const removeFavorite = Favorite((state) => state.removeFavorite);
   const isFavorite = favorites.some((item) => item.idMeal === idMeal);
 
-  useEffect(() => {
-    const fetchRecipeDetail = async () => {
-      try {
-        setError(false);
-        const meal = await fetchRecipeDetailAPI(idMeal);
-        if (meal) {
-          setRecipe(meal);
-        } else {
-          setError(true);
-        }
-      } catch (err) {
+  const fetchRecipeDetail = async () => {
+    try {
+      setLoading(true);
+      setError(false);
+      const meal = await fetchRecipeDetailAPI(idMeal);
+      if (meal) {
+        setRecipe(meal);
+      } else {
         setError(true);
-      } finally {
-        setLoading(false);
       }
-    };
+    } catch (err) {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     if (idMeal) {
       fetchRecipeDetail();
     } else {
@@ -93,14 +95,20 @@ export default function DetailScreen({ route, navigation }) {
 
   if (error || !recipe) {
     return (
-      <View style={styles.centerContainer}>
-        <Text style={styles.errorIcon}>⚠️</Text>
-        <Text style={styles.errorTitle}>Oops! Something went wrong.</Text>
-        <Text style={styles.errorMessage}>Gagal memuat data</Text>
-        <TouchableOpacity style={styles.backButtonError} onPress={() => navigation.goBack()}>
-          <Text style={styles.backButtonText}>Kembali</Text>
-        </TouchableOpacity>
-      </View>
+      <SafeAreaView style={styles.safeArea}>
+        <StatusBar barStyle="dark-content" backgroundColor="#F9F9F9" />
+        <View style={styles.header}>
+          <TouchableOpacity 
+            style={styles.backButton} 
+            onPress={() => navigation.goBack()}
+          >
+            <FontAwesome name="chevron-left" size={24} color="#FF6B35" />
+          </TouchableOpacity>
+        </View>
+        <View style={[styles.centerContainer, { paddingHorizontal: 20 }]}>
+          <Error message="Gagal memuat detail resep" onRetry={fetchRecipeDetail} />
+        </View>
+      </SafeAreaView>
     );
   }
 

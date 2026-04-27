@@ -19,8 +19,8 @@ import SearchCard from '../components/SearchCard';
 import CategoryChip from '../components/CategoryChip';
 import { fetchCategoriesAPI } from '../api/API';
 
-import useDebounce from '../utils/useDebounce';
-import useMealSearch from '../utils/useMealSearch';
+import useDebounce from '../hooks/useDebounce';
+import useMealSearch from '../hooks/useMealSearch';
 
 export default function SearchScreen({ navigation }) {
   const [query, setQuery]                     = useState('');
