@@ -21,7 +21,10 @@ Tema A: ResepKita (API: themealdb.com)
 
 ## Cara install & run
 
-git clone https://github.com/ryuvyyn/uts-mobile-lanjut-2410501040-Muhammad_Kevin.git & npm install & npx expo start
+git clone https://github.com/ryuvyyn/uts-mobile-lanjut-2410501040-Muhammad_Kevin.git
+cd uts-mobile-lanjut-2410501040-Muhammad_Kevin
+npm install
+npx expo start
 
 ## Screenshot
 
